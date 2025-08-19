@@ -103,11 +103,52 @@
       </a>
     </div>
   </main>
+<!-- Button for modal -->
+<div class="text-center py-12">
+  <button id="showQuoteBtn" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg transition">
+    بینینی وتەیەکان
+  </button>
+</div>
+<!-- Modal -->
+<div id="quoteModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
+  <div class="bg-gray-900 text-gray-100 rounded-xl p-8 max-w-md w-full relative flex flex-col items-center">
+    <button id="closeModal" class="absolute top-3 left-3 text-gray-400 hover:text-white text-xl">&times;</button>
+    <p id="quoteText" class="text-gray-200 text-lg text-center" dir="rtl"></p>
+  </div>
+</div>
 
   <!-- Footer -->
   <footer class="text-center py-8 text-gray-500">
     © 2025 e.713e | All Rights Reserved
   </footer>
+
+
+  <script>
+  const showBtn = document.getElementById('showQuoteBtn');
+  const modal = document.getElementById('quoteModal');
+  const closeBtn = document.getElementById('closeModal');
+  const quoteText = document.getElementById('quoteText');
+
+  async function loadQuotes() {
+    const res = await fetch('./quotes.json'); // لینک بە فایل JSON
+    const data = await res.json();
+    return data.quotes;
+  }
+
+  showBtn.addEventListener('click', async () => {
+    const quotes = await loadQuotes();
+    const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+    quoteText.textContent = randomQuote;
+    modal.classList.remove('hidden');
+  });
+
+  // فقط دوگمەی × مۆداڵەکە لابەستێت
+  closeBtn.addEventListener('click', () => {
+    modal.classList.add('hidden');
+  });
+
+  // لای بیر لە مۆداڵ هیچی کار ناکات
+</script>
 
 </body>
 </html>
