@@ -51,6 +51,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="styles.css">
+    <style>
+        #quote-display{
+                transition: opacity 0.5s ease-in-out; 
+
+        }
+    </style>
 </head>
 <body>
     <!-- Theme Toggle Button -->
@@ -79,8 +85,8 @@
             <h1 class="profile-name">e.713e</h1>
             
             <p class="profile-bio">
-                ZhanYar | ژەنـــیـــار<br>
-                <span class="bio-subtitle">Crafting innovative digital experiences with modern web technologies</span>
+                ZhanYar | <span class="kurdfont">ژەنـــیـــار</span><br>
+                <span dir="rtl" id="quote-display" class="bio-subtitle kurdfont"></span>
             </p>
             
             <!-- Copy Link Button -->
@@ -220,6 +226,51 @@
     </div>
 
     <script src="script.js"></script>
+     <script>
+      // This script goes inside your index.html, before the </body> tag
+
+document.addEventListener('DOMContentLoaded', function() {
+    const quoteDisplay = document.getElementById('quote-display');
+    let quotes = [];
+
+    // 1. Load quotes from the JSON file
+    fetch('quotes.json')
+        .then(response => response.json())
+        .then(data => {
+            quotes = data.quotes;
+            if (quotes.length > 0) {
+                // 2. Display the first quote with a fade-in effect
+                displayRandomQuote();
+                
+                // 3. Set an interval to change the quote every 3 seconds
+                // I'll make it 3 seconds to give the fade effect enough time to be appreciated
+                setInterval(displayRandomQuote, 3000); 
+            }
+        })
+        .catch(error => {
+            console.error('Error loading quotes:', error);
+            quoteDisplay.textContent = 'هەڵەیەک لە بارکردنی وتەکان ڕوویدا.';
+        });
+
+    function displayRandomQuote() {
+        // Get a random quote
+        const randomIndex = Math.floor(Math.random() * quotes.length);
+        const randomQuote = quotes[randomIndex];
+        
+        // --- The Fade Out/In Logic ---
+        
+        // Step A: Fade Out the current quote
+        quoteDisplay.style.opacity = 0;
+        
+        // Step B: Wait for the fade-out to finish, then change the text and fade back in
+        setTimeout(() => {
+            quoteDisplay.textContent = randomQuote; // Change the text
+            quoteDisplay.style.opacity = 1;         // Fade In the new text
+        }, 500); // This timeout (500ms) must match the CSS transition duration
+    }
+});
+
+    </script>
 </body>
 </html>
 

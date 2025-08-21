@@ -40,6 +40,20 @@
     --button-hover: rgba(0, 0, 0, 0.1);
 }
 
+    @font-face {
+        font-family: "NRT-Bd";
+        src: url("./font/NRT-Bd.eot"); /* IE9 Compat Modes */
+        src: url("./font/NRT-Bd.eot?#iefix") format("embedded-opentype"), /* IE6-IE8 */
+            url("./font/NRT-Bd.ttf") format("truetype"), /* Safari, Android, iOS */
+            url("./font/NRT-Bd.woff") format("woff"); /* Modern Browsers */
+        font-weight: normal;
+        font-style: normal;
+        }
+
+        .kurdfont {
+        font-family: "NRT-Bd";
+ 
+        }
 /* Reset and Base Styles */
 * {
     margin: 0;
